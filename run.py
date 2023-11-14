@@ -1,61 +1,91 @@
-def create_board(size):
-    return [["O" for _ in range(size)] for _ in range(size)]
-    board_size = 10 
-    game_board = create_board(board_size)
-
-def print_board(board):
- 
- 
-        
-   for row in board:
-        print(" ".join(row))
-        print_board(game_board)
 import random
 
+def create_board(size):
+    return [["O" for _ in range(size)] for _ in range(size)]
+
 def place_ships(board, num_ships):
+    size = len(board)
     for _ in range(num_ships):
-        x, y = random.randint(0, len(board) - 1), random.randint(0, len(board) - 1)
-        board[x][y] = "S"  # "S" denotes a ship
-        place_ships(game_board, 5)
-def get_user_guess():
+        ship_placed = False
+        while not ship_placed:
+            row, col = random.randint(0, size - 1), random.randint(0, size - 1)
+            if board[row][col] == "O":
+                board[row][col] = "S"
+                ship_placed = True
+
+def print_board(board, reveal=False):
+    display_board = []
+    for row in board:
+        display_row = []
+        for cell in row:
+            if cell == "O":
+                display_row.append('.')
+            elif cell == "S":
+                display_row.append('S' if reveal else '.')
+            elif cell == "H":
+                display_row.append('V')
+            elif cell == "M":
+                display_row.append('X')
+        display_board.append(display_row)
+    for row in display_board:
+        print(" ".join(row))
+
+def get_shot():
     while True:
         try:
-            x, y = map(int, input("Enter your guess (row column): ").split())
-            return x, y
+            row = int(input("Enter row to hit: "))
+            col = int(input("Enter column to hit: "))
+            return row, col
         except ValueError:
-            print("Invalid input. Please enter numbers.")
-            user_guess = get_user_guess(
- def check_guess(board, guess):
-    x, y = guess
-    if x < 0 or y < 0 or x >= len(board) or y >= len(board):
-        return "Off-grid!"
-    if board[x][y] == "S":
-        board[x][y] = "H"  # "H" for hit
-        return "Hit!"
+            print("Please enter valid row and column numbers.")
+
+def make_move(board, row, col):
+    if 0 <= row < len(board) and 0 <= col < len(board):
+        if board[row][col] == "S":
+            board[row][col] = "H"  # H for hit (will display as V)
+            print("Hit!")
+            return True
+        elif board[row][col] == "O":
+            board[row][col] = "M"  # M for miss (will display as X)
+            print("Miss.")
     else:
-        board[x][y] = "M"  # "M" for miss
-        return "Miss!"           
-        result = check_guess(game_board, user_guess)
-print(result)
+        print("Out of bounds.")
+    return False
 
-def main():
-    board_size = int(input("Enter board size: "))
-    num_ships = int(input("Enter number of ships: "))
+def is_game_over(board):
+    return not any("S" in row for row in board)
 
-    game_board = create_board(board_size)
-    place_ships(game_board, num_ships)
+# Game setup
+board_size = 5
+num_ships = 3
 
-    while True:
-        print_board(game_board)
-        guess = get_user_guess()
-        result = check_guess(game_board, guess)
-        print(result)
-        if result == "Hit!":
-            num_ships -= 1
-            if num_ships == 0:
-                print("All ships have been destroyed! You win!")
-                break
+player_board = create_board(board_size)
+computer_board = create_board(board_size)
 
-if __name__ == "__main__":
-    main()
-    
+place_ships(player_board, num_ships)
+place_ships(computer_board, num_ships)
+
+player_name = input("Enter your name: ")
+
+# Game loop
+game_over = False
+while not game_over:
+    print(f"\n{player_name}'s turn:")
+    print_board(player_board, reveal=True)
+    row, col = get_shot()
+    make_move(computer_board, row, col)
+
+    if is_game_over(computer_board):
+        print(f"Congratulations, {player_name}! You have won the game!")
+        break
+
+    print("\nComputer's turn:")
+    row, col = random.randint(0, board_size - 1), random.randint(0, board_size - 1)
+    make_move(player_board, row, col)
+
+    if is_game_over(player_board):
+        print("Sorry, the computer has won the game.")
+        break
+
+    print("\nCurrent Board:")
+    print_board(player_board, reveal=True)
