@@ -1,7 +1,7 @@
 # Battleship Game
 
 ## Starting the Game
-![Starting the Game](./images/srart.png)
+![Starting the Game](./images/start.png)
 
 ## Description
 This Python project is a simple, text-based version of the classic game Battleship. The game is played against the computer in a 5x5 grid. Players take turns to guess the location of the enemy's ships and try to sink them all to win the game.
