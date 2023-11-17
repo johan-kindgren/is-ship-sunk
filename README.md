@@ -1,8 +1,5 @@
 # Battleship Game
 
-## Starting the Game
-![Starting the Game](./images/start.png)
-
 ## Description
 This Python project is a simple, text-based version of the classic game Battleship. The game is played against the computer in a 5x5 grid. Players take turns to guess the location of the enemy's ships and try to sink them all to win the game.
 
@@ -20,10 +17,10 @@ This Python project is a simple, text-based version of the classic game Battlesh
 ### During the Game
 ![During the Game](./images/gameon.png)
 
-3. You will see your board with your ships (marked as 'S') and the hits or misses.
-4. Enter the row and column numbers to hit a spot on the computer's board.
-5. The game will indicate whether it was a hit or a miss.
-6. The game ends when all ships on one board are sunk.
+- You will see your board with your ships (marked as 'S') and the hits or misses.
+- Enter the row and column numbers to hit a spot on the computer's board.
+- The game will indicate whether it was a hit or a miss.
+- The game ends when all ships on one board are sunk.
 
 ## Installation
 No additional libraries are required to run this game. Just ensure you have Python installed on your system.
@@ -43,4 +40,3 @@ No additional libraries are required to run this game. Just ensure you have Pyth
 
 ### Game Over
 ![Game Over](./images/finish.png)
-
