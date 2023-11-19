@@ -25,6 +25,20 @@ This Python project is a simple, text-based version of the classic game Battlesh
 ## Installation
 No additional libraries are required to run this game. Just ensure you have Python installed on your system.
 
+## Code Style and Linting Issues
+While developing this game, we aimed to adhere to standard Python coding practices. However, you might encounter some style guide warnings if you run a linter on the code. These include:
+
+- E302 expected 2 blank lines, found 1
+- 6: E302 expected 2 blank lines, found 1
+- 16: E302 expected 2 blank lines, found 1
+- 33: E302 expected 2 blank lines, found 1
+- 42: E302 expected 2 blank lines, found 1
+- 55: E302 expected 2 blank lines, found 1
+- 59: E305 expected 2 blank lines after class or function definition, found 1
+- 83: E501 line too long (83 > 79 characters)
+
+We plan to address these in future updates to better adhere to PEP 8 standards.
+
 ## Limitations
 - The game currently does not have a graphical interface; it runs in the console.
 - There is no difficulty level for the computer player; it makes random guesses.
